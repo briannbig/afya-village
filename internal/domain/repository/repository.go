@@ -18,4 +18,14 @@ type (
 		FindById(id string) (*model.Appointment, error)
 		FindByIdentifier(identifier string) (*model.Appointment, error)
 	}
+	MedicalRecordRepository interface {
+		Save(model *model.MedicalRecord) error
+		FindById(id string) (*model.MedicalRecord, error)
+		FindByIdentifier(identifier string) (*model.MedicalRecord, error)
+	}
+	MedicRepository interface {
+		Save(model *model.Medic) error
+		FindById(id string) (*model.Medic, error)
+		FindByIdentifier(identifier string) (*model.Medic, error)
+	}
 )
