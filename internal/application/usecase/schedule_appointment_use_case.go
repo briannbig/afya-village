@@ -64,7 +64,7 @@ func (s *ScheduleAppointmentUseCase) ScheduleAppointment(patientID, mobileClinic
 		return nil, err
 	}
 
-	if err := s.producer.Produce(
+	if err := s.producer.Publish(
 		event.AppointmentScheduledEvent{Appointment: appointment},
 	); err != nil {
 		return nil, err

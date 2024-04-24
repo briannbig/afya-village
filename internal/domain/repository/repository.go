@@ -3,6 +3,11 @@ package repository
 import "github.com/briannbig/afya-village/internal/domain/model"
 
 type (
+	UserRepository interface {
+		Save(model *model.User) error
+		FindById(id string) (*model.User, error)
+		FindByIdentifier(identifier string) (*model.User, error)
+	}
 	PatientRepository interface {
 		Save(model *model.Patient) error
 		FindById(id string) (*model.Patient, error)

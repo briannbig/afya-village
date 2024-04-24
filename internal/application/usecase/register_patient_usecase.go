@@ -18,12 +18,12 @@ func NewPatientRegistrationUseCase(repo repository.PatientRepository, producer q
 	return &PatientRegistrationUseCase{repo: repo, producer: producer}
 }
 
-func (u *PatientRegistrationUseCase) RegisterNewPatient(name string, dateOfBirth time.Time, gender, location string) (*model.Patient, error) {
-	patient := model.NewPatient(name, dateOfBirth, gender, location)
+func (u *PatientRegistrationUseCase) RegisterNewPatient(name, username, email, telephone, password string, dateOfBirth time.Time, gender, location string) (*model.Patient, error) {
+	patient := model.NewPatient(username, email, telephone, name, gender, location, password, dateOfBirth)
 	if err := u.repo.Save(&patient); err != nil {
 		return nil, err
 	}
-	err := u.producer.Produce(event.PatientRegisteredEvent{Patient: patient})
+	err := u.producer.Publish(event.PatientRegisteredEvent{Patient: patient})
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +36,7 @@ func (u *PatientRegistrationUseCase) RegisterExistingPatient(identifier string) 
 		return nil, err
 	}
 
-	err = u.producer.Produce(event.PatientRegisteredEvent{Patient: *patient})
+	err = u.producer.Publish(event.PatientRegisteredEvent{Patient: *patient})
 	if err != nil {
 		return nil, err
 	}

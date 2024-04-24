@@ -63,7 +63,7 @@ func (r *AddMedicalRecordUseCase) AddMedicalRecord(
 		return nil, err
 	}
 
-	if err := r.producer.Produce(
+	if err := r.producer.Publish(
 		event.MedicalRecordCreatedEvent{
 			MedicalRecord: medicalRecord},
 	); err != nil {
