@@ -22,8 +22,16 @@ type (
 		DeletedAt *time.Time `json:"deletedAt,omitempty"`
 	}
 
-	Patient struct {
+	User struct {
 		BaseModel
+		Username  string `json:"username"`
+		Email     string `json:"email"`
+		Telephone string `json:"telephone"`
+		Password  string `json:"-"`
+	}
+
+	Patient struct {
+		User
 		Name           string          `json:"name"`
 		DateOfBirth    time.Time       `json:"dateOfBirth"`
 		Gender         string          `json:"gender"`
@@ -32,7 +40,7 @@ type (
 	}
 
 	Medic struct {
-		BaseModel
+		User
 		Name           string   `json:"name"`
 		Specialization string   `json:"specialization"`
 		Qualifications []string `json:"qualifications"`
@@ -83,10 +91,20 @@ func newBaseModel() BaseModel {
 	}
 }
 
-func NewPatient(name string, dateOfBirth time.Time, gender, location string) Patient {
-	baseModel := newBaseModel()
+func NewUser(username, email, telephone, password string) User {
+	return User{
+		BaseModel: newBaseModel(),
+		Username:  username,
+		Email:     email,
+		Telephone: telephone,
+		Password:  password,
+	}
+}
+
+func NewPatient(username, email, telephone, name, gender, location, password string, dateOfBirth time.Time) Patient {
+	user := NewUser(username, email, telephone, password)
 	return Patient{
-		BaseModel:      baseModel,
+		User:           user,
 		Name:           name,
 		DateOfBirth:    dateOfBirth,
 		Gender:         gender,
@@ -95,10 +113,10 @@ func NewPatient(name string, dateOfBirth time.Time, gender, location string) Pat
 	}
 }
 
-func NewMedicalProfessional(name, specialization string, qualifications []string, experience int) Medic {
-	baseModel := newBaseModel()
+func NewMedicalProfessional(username, email, telephone, name, specialization, password string, qualifications []string, experience int) Medic {
+	user := NewUser(username, email, telephone, password)
 	return Medic{
-		BaseModel:      baseModel,
+		User:           user,
 		Name:           name,
 		Specialization: specialization,
 		Qualifications: qualifications,

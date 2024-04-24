@@ -3,6 +3,10 @@ package event
 import "github.com/briannbig/afya-village/internal/domain/model"
 
 type (
+	UserRegisteredEvent struct {
+		User model.User
+	}
+	
 	PatientRegisteredEvent struct {
 		Patient model.Patient
 	}
