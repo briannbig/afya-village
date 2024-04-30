@@ -12,6 +12,7 @@ type Producer interface {
 type EventType string
 
 const (
+	EventUserCreated          EventType = "user.create"
 	EventPatientCreated       EventType = "patient.create"
 	EventMedicalRecordCreated EventType = "medical.record.create"
 	EventAppointmentScheduled EventType = "appointment.create"
@@ -28,5 +29,3 @@ func New(nc *nats.Conn) Queue {
 func (q Queue) RegisterProducer(eventType EventType) Producer {
 	return queue.NewProducer(q.nc, string(eventType))
 }
-
-

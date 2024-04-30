@@ -9,6 +9,7 @@ import (
 	"github.com/briannbig/afya-village/internal/application/controller"
 	"github.com/briannbig/afya-village/internal/application/middleware"
 	"github.com/briannbig/afya-village/internal/domain/queue"
+	"github.com/briannbig/afya-village/internal/infra/database"
 	"github.com/gin-gonic/gin"
 
 	"github.com/nats-io/nats.go"
@@ -19,6 +20,7 @@ var (
 )
 
 func main() {
+
 	log.Printf("<<<<<<<<<<<<<<<Afya Village>>>>>>>>>>>>>>>")
 
 	nc, err := nats.Connect(nats.DefaultURL)
@@ -27,7 +29,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	queue.New(nc)
+	q := queue.New(nc)
+
+	db := database.New()
+
+	userController = controller.NewUserController(&db, &q)
 
 	r := router()
 
@@ -62,5 +68,3 @@ func setupLogger() {
 	f, _ := os.Create("app-server.log")
 	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 }
-
-
