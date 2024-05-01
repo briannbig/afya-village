@@ -1,12 +1,17 @@
 package util
 
-import "fmt"
+import (
+	"encoding/json"
+)
 
 func GetBytes(payload any) ([]byte, error) {
-	buf, ok := payload.([]byte)
-	if !ok {
-		return nil, fmt.Errorf("error transforming payload to bytes")
+
+	str, err := json.Marshal(payload)
+	if err != nil {
+		return nil, err
 	}
+
+	buf := []byte(str)
 
 	return buf, nil
 }
