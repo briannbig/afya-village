@@ -8,20 +8,28 @@ import (
 
 	"github.com/briannbig/afya-village/internal/application/controller"
 	"github.com/briannbig/afya-village/internal/application/middleware"
+	"github.com/briannbig/afya-village/internal/application/service"
 	"github.com/briannbig/afya-village/internal/domain/queue"
 	"github.com/briannbig/afya-village/internal/infra/database"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 
 	"github.com/nats-io/nats.go"
 )
 
 var (
 	userController controller.UserController
+	emailNotifier  service.Notifier
 )
 
 func main() {
 
 	log.Printf("<<<<<<<<<<<<<<<Afya Village>>>>>>>>>>>>>>>")
+
+	envErr := godotenv.Load()
+	if envErr != nil {
+		log.Fatal("Error loading env file", envErr)
+	}
 
 	nc, err := nats.Connect(nats.DefaultURL)
 	if err != nil {
@@ -34,6 +42,9 @@ func main() {
 	db := database.New()
 
 	userController = controller.NewUserController(&db, &q)
+
+	emailNotifier = service.Emailnotifier()
+	q.RegisterConsumer(queue.EventUserCreated, emailNotifier.Notify)
 
 	r := router()
 

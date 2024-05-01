@@ -2,3 +2,8 @@ DB_USER=afya
 DB_PASS=afy4
 DB_NAME=afya_village
 DB_PORT=5444
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=username
+SMTP_PASSWORD=password

@@ -29,3 +29,7 @@ func New(nc *nats.Conn) Queue {
 func (q Queue) RegisterProducer(eventType EventType) Producer {
 	return queue.NewProducer(q.nc, string(eventType))
 }
+
+func (q Queue) RegisterConsumer(eventType EventType, handler func(*nats.Msg)) error {
+	return queue.NewConsumer(q.nc, string(eventType), handler)
+}

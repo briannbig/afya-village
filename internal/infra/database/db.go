@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
@@ -15,11 +14,6 @@ type DataBase struct {
 }
 
 func New() DataBase {
-
-	envErr := godotenv.Load()
-	if envErr != nil {
-		log.Fatal("Error loading env file", envErr)
-	}
 
 	user := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASS")
