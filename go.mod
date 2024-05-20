@@ -3,7 +3,7 @@ module github.com/briannbig/afya-village
 go 1.22.2
 
 require (
-	github.com/nats-io/nats.go v1.34.1
+	github.com/nats-io/nats.go v1.35.0
 	github.com/rs/xid v1.5.0
 )
 
