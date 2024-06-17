@@ -3,7 +3,7 @@ module github.com/briannbig/afya-village
 go 1.22.2
 
 require (
-	github.com/nats-io/nats.go v1.34.1
+	github.com/nats-io/nats.go v1.36.0
 	github.com/rs/xid v1.5.0
 )
 
@@ -29,7 +29,6 @@ require (
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	golang.org/x/arch v0.8.0 // indirect
 	golang.org/x/net v0.25.0 // indirect
-	golang.org/x/text v0.15.0 // indirect
 	google.golang.org/protobuf v1.34.1 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
