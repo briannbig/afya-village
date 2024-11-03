@@ -4,7 +4,7 @@ go 1.22.2
 
 require (
 	github.com/nats-io/nats.go v1.37.0
-	github.com/rs/xid v1.5.0
+	github.com/rs/xid v1.6.0
 )
 
 require (
